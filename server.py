@@ -3,6 +3,7 @@
 # import the needed stuff from Flask and the emotion detector
 from flask import Flask, render_template, request
 from EmotionDetection.emotion_detection import emotion_detector
+import json
 
 app = Flask("Emotion Detector")
 
@@ -13,11 +14,21 @@ def emotion_d():
         function. The output returned shows predominant emotion.
     '''
     # Get the text from the request 
-    text_to_analyse = request.args.get('text', '')  
+    text_to_analyse = request.args.get('textToAnalyze')
     # Call the emotion detector function with the text 
     result = emotion_detector(text_to_analyse)
+    # now a very ugly way to get to the exact required output string
+    anger = result['anger']
+    disgust = result['disgust']
+    fear = result['fear']
+    joy = result['joy']
+    sadness = result['sadness']
+    dominant_emotion = result['dominant_emotion']
     #return the result of the analysis
-    return("For the given statement, the system response is ", result)
+    ret_str = (f"For the given statement, the system response is \'anger\': {anger}, \'disgust\': {disgust}, \
+        \'fear\': {fear}, \'joy\': {joy}, \'sadness\': {sadness}. \
+        The dominant emotion is {dominant_emotion}")
+    return ret_str
     
 
 @app.route("/")

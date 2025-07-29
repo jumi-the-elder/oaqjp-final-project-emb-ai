@@ -21,4 +21,5 @@ def emotion_detector(text_to_analyse):
         'sadness': emotions['sadness'],
         'dominant_emotion': max(emotions, key=emotions.get)
     }
+    return result
     return json.dumps(result)
