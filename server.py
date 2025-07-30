@@ -24,8 +24,11 @@ def emotion_d():
     joy = result['joy']
     sadness = result['sadness']
     dominant_emotion = result['dominant_emotion']
-    #return the result of the analysis
-    ret_str = (f"For the given statement, the system response is \'anger\': {anger}, \'disgust\': {disgust}, \
+    #return the result of the analysis, in case of an error "invalid text" message
+    if dominant_emotion == None:
+        ret_str = "Invalid text! Please try again!"
+    else:
+        ret_str = (f"For the given statement, the system response is \'anger\': {anger}, \'disgust\': {disgust}, \
         \'fear\': {fear}, \'joy\': {joy}, \'sadness\': {sadness}. \
         The dominant emotion is {dominant_emotion}")
     return ret_str
